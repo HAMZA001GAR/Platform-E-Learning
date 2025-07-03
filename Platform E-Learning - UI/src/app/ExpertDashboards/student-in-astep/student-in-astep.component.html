@@ -1,0 +1,44 @@
+
+<div class="panel mt-6 pb-0 bg-white">
+  <h5 class="mb-5 text-lg font-semibold dark:text-white-light">Advanced</h5>
+  <div class="datatable">
+    <ng-datatable [columns]="cols" [sortable]="true" [selectRowOnClick]="true" [pagination]="true" [rows]="students"
+      skin="whitespace-nowrap bh-table-hover"
+      firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+      lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+      previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+      nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'>
+      <ng-template slot="id"  let-value="data">
+        <strong class="text-info">#{{ value.id }}</strong>
+      </ng-template>
+      <ng-template slot="fullName" let-value="data">
+        <div class="flex items-center gap-2" (click)="onRowClick(value.studentId)">
+          <img src="/assets/profile-7.jpeg" class="h-9 w-9 max-w-none rounded-full" alt="user-profile" />
+          <div class="font-semibold">{{ value.fullName }}</div>
+        </div>
+      </ng-template>
+      <ng-template slot="taskUrl" let-value="data">
+        <a [href]="value.taskUrl" target="_blank" class="text-primary hover:underline">{{ value.taskUrl }}</a>
+      </ng-template>
+      <ng-template slot="startDate" let-value="data">
+        <div class="text-green-500">{{ value.startDate }}</div>
+      </ng-template>
+      <ng-template slot="endDate" let-value="data">
+        <div class="text-green-500">{{ value.endDate }}</div>
+      </ng-template>
+      <ng-template slot="statusStep" let-value="data">
+        <div
+          [ngClass]="{'text-green-500': value.stepStatus === 'Finished', 'text-blue-500': value.stepStatus === 'In Progress'}">
+          {{ value.stepStatus }}
+        </div>
+      </ng-template>
+      <ng-template slot="actions" let-value="data">
+        <div>
+          <button (click)="deleteStudentStep(value.studentId, value.stepId, value.parcoursId)">
+            <img src="/assets/open-svgrepo-com.svg" class="w-6 h-6" />
+          </button>
+        </div>
+      </ng-template>
+    </ng-datatable>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - JitTracking</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white shadow-md rounded-lg flex max-w-4xl w-full h-auto" style="height: 600px;">
+        <div class="w-1/2 p-8 flex flex-col items-center justify-center">
+            <h2 class="text-black text-4xl font-semibold font-['Poppins'] leading-10">Welcome Back</h2>
+            <p class="text-black text-lg font-normal font-['Poppins'] leading-7 mb-8">Login into your account</p>
+            <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
+                {{ errorMessage }}
+              </div>
+              <br>
+            <form class="w-full" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="mb-4">
+                    <input class="w-full p-2 border border-gray-300 rounded-md" formControlName="email" type="email" placeholder="Email" required>
+                </div>
+                <div class="mb-4">
+                    <input class="w-full p-2 border border-gray-300 rounded-md" formControlName="password" type="password" placeholder="Password" required>
+                </div>
+                <div class="flex items-center justify-between mb-8">
+                    <label class="flex items-center text-sm text-gray-600">
+                        <input type="checkbox" class="form-checkbox">
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a routerLink="/recoverPassword" class="text-sm text-blue-600 hover:underline">Recover Password</a>
+                </div>
+                <button class="w-full bg-blue-600 text-white py-2 rounded-md">Log In</button>
+                
+            </form>
+            
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Don't have an account? <a routerLink="/signup" class="text-blue-600 hover:underline">Sign up!</a>
+            </p>
+        </div>
+        <div class="w-1/2 bg-gray-200 p-8 flex items-center justify-center bg-cover bg-center " style="background-image: url('assets/person.png');">
+            <div class="bg-white bg-opacity-75 p-4 rounded-md mt-60">
+                <p class="text-center text-gray-700">Today, we create innovative solutions to the challenges that consumers face in both their everyday lives and events.</p>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

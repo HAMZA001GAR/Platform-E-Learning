@@ -1,0 +1,72 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #f4f6f8;
+      border-radius: 20px;
+      padding: 5px 10px;
+  
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 5px 10px;
+        border-radius: 20px;
+      }
+  
+      button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+  
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  
+    .icons {
+      display: flex;
+      align-items: center;
+  
+      img {
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+    }
+  
+    .profile {
+      display: flex;
+      align-items: center;
+  
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+  
+      .dropdown-button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+  
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+  

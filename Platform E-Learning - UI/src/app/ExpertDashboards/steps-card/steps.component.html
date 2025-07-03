@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modules</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="h-full">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">Modules</h2>
+    <button routerLink="/add-step"
+      class="bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="p-6 h-full bg-gray-100" *ngIf="stepsList.length > 0">
+    <div *ngFor="let step of stepsList" class="progress-card flex items-stretch mx-auto bg-white shadow-lg rounded-lg overflow-hidden mb-4">
+      <div class="flex flex-col h-full">
+        <ng-container *ngIf="step.imageUrl; else defaultImage">
+          <img [routerLink]="['/edit-step', step.id]" class="h-28 w-64 object-cover rounded"
+               [src]="backendUrl + step.imageUrl" (error)="onImageError(step.imageUrl)" alt="Step Image">
+        </ng-container>
+        <ng-template #defaultImage>
+          <img [routerLink]="['/edit-step', step.id]" class="h-28 w-64 object-cover rounded" src="assets/learn.jpg" alt="Default Image">
+        </ng-template>
+        <br>
+        <div class="h-1/4 flex flex-col justify-center">
+          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-1">
+            <div *ngIf="step.progress >= 50" class="bg-green-500 h-2.5 rounded-full" [style.width.%]="step.progress"></div>
+            <div *ngIf="step.progress < 50" class="bg-yellow-300 h-2.5 rounded-full" [style.width.%]="step.progress"></div>
+          </div>
+          <ng-container *ngIf="step.progress; else defaultProgress">
+            <span class="text-sm text-gray-600 text-center">{{ step.progress | number:'1.2-2' }} %</span>
+          </ng-container>
+          <ng-template #defaultProgress>
+            <span class="text-sm text-gray-600 text-center">0.00 %</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="w-3/4 p-4 flex flex-col justify-between">
+        <div>
+          <div [routerLink]="['/edit-step', step.id]" class="text-gray-800 font-bold text-xl">{{ step.title }}</div>
+          <div [routerLink]="['/edit-step', step.id]" class="text-gray-600 text-sm mb-2">{{ step.description }}</div>
+          <div class="flex items-center text-gray-600 space-x-2">
+            <img src="assets/Time-Circle.png" alt="Time Icon" class="h-5 w-5">
+            <span [routerLink]="['/edit-step', step.id]">{{ step.durationInMinutes }} Hour</span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <ng-container *ngIf="step.count; else defaultCount">
+            <div class="text-yellow-500 text-sm">{{ step.count }} Apprenant</div>
+          </ng-container>
+          <ng-template #defaultCount>
+            <div class="text-yellow-500 text-sm">0 Apprenant</div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="relative inline-block text-left self-start">
+        <button (click)="toggleDropdown(step.id)" id="menuButton"
+                class="absolute left-0 text-gray-900 hover:text-gray-700 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h.01M12 12h.01M18 12h.01"></path>
+          </svg>
+        </button>
+
+        <div *ngIf="openStepId === step.id" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+          <div class="py-1">
+            <a (click)="deleteStep(step.id)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-center space-x-4 mt-4">
+    <button (click)="handlePrevious()" [disabled]="currentPage === 0"
+            class="bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-full hover:bg-gray-400">
+      Previous
+    </button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button (click)="handleNext()" [disabled]="currentPage === totalPages - 1"
+            class="bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-full hover:bg-gray-400">
+      Next
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+</body>
+
+</html>

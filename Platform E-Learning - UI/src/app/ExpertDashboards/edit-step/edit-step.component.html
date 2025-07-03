@@ -1,0 +1,157 @@
+
+<!-- Check if not loading -->
+<div class="container mx-auto p-4" *ngIf="!isLoading">
+  <!-- Header Section -->
+  <div class="flex justify-between items-center bg-white p-4 shadow rounded mb-4">
+    <div class="flex items-center">
+      <span class="text-2xl font-bold text-blue-500 font-montserrat mr-2">Edit Step :</span>
+      <span class="text-2xl text-black-600 font-bold font-montserrat">{{ editableStep.title }}</span>
+    </div>
+    
+    <div class="flex items-center space-x-4">
+     
+
+      <button class="bg-gray-200 p-2 rounded text-gray-500 hover:text-red-600 flex items-center"
+        (click)="deleteStep(step!.id)">
+        <img src="assets/delete_garbage_trash_icon 1.svg" alt="Delete" class="w-6 h-6 mr-2">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="flex flex-grow p-6">
+    <div class="w-2/3 pr-4">
+      <ng-container *ngIf="editableStep.imageUrl; else defaultImage">
+      <img [src]="backendUrl + editableStep.imageUrl" alt="Step Image" class=" w-full h-64 object-cover text-center b-4 rounded-lg shadow-md">
+    </ng-container>
+    <ng-template #defaultImage>
+      <img src="assets/learn.jpg" alt="Step Image" class="w-full h-64 object-cover text-center rounded-lg shadow-md">
+    </ng-template>
+  
+      <div class="text-sm text-gray-500 mb-4 details mt-4 flex ">
+        <img src="assets/Time-Circle.png" alt="Time Icon" class="h-5 w-5 mr-1">
+        {{ editableStep.durationInMinutes }} Hours
+      </div>
+
+      <div class="flex flex-col w-full space-y-6">
+        <!-- Description Section -->
+
+        <div class="bg-white p-4 shadow rounded">
+          <div class="text-lg font-semibold mb-4 flex items-center">
+            <img src="assets/edit.svg" alt="Learning Icon" class="h-10 w-10 mr-3 cursor-pointer"
+              (click)="toggleEditDescription()">
+            Description
+          </div>
+          <ng-container *ngIf="isEditingDescription; else displayDescription">
+            <textarea [(ngModel)]="editableStep.description" class="border p-2 rounded w-full" [style.height.%]="100"
+              [style.width.%]="100"></textarea>
+          </ng-container>
+          <ng-template #displayDescription>
+            <p class="text-gray-700 mb-4">{{ editableStep.description }}</p>
+          </ng-template>
+        </div>
+
+        <div class="bg-white p-4 shadow rounded" *ngIf="learning.length > 0">
+          <div class="text-lg font-semibold mb-4 flex items-center">
+            <img src="assets/edit.svg" alt="Learning Icon" class="h-10 w-10 mr-3 cursor-pointer" (click)="toggleEditLearning()">
+            Part 1: Learning
+          </div>
+        
+          <ul class="list-disc text-gray-700">
+            <ng-container *ngIf="isEditingLearning; else displayLearning">
+              <ul class="list-disc text-gray-700" *ngFor="let item of learning; let i = index; trackBy: trackByIndex">
+                <li *ngFor="let url of item.url; let j = index; trackBy: trackByIndex" class="flex items-center mb-2">
+                  <img src="assets/tick-circle.png" alt="tick" class="mr-2">
+                  <textarea [(ngModel)]="learning[i].url[j]" class="border p-2 rounded text-blue-500" [style.height.%]="100"
+                    [style.width.%]="100" (focus)="onFocus(i, j)" (input)="onInputChange(i, j, $event)">
+                  </textarea>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #displayLearning>
+              <ul class="list-disc text-gray-700" *ngFor="let item of learning; let i = index">
+                <li *ngFor="let url of item.url; let j = index" class="flex items-center mb-2">
+                  <img src="assets/tick-circle.png" alt="tick" class="mr-2">
+                  <span>{{ url }}</span>
+                </li>
+              </ul>
+            </ng-template>
+          </ul>
+        </div>
+        
+        <!-- Doing Section -->
+
+
+        <div class="bg-white p-4 shadow rounded" *ngIf="doing.length > 0">
+          <div class="text-lg font-semibold mb-4 flex items-center">
+            <img src="assets/edit.svg" alt="Learning Icon" class="h-10 w-10 mr-3 cursor-pointer"
+              (click)="toggleEditTask()">
+            Part 2: Doing
+          </div>
+
+          <div class="flex items-center">
+            <img src="assets/tick-circle.png" alt="tick" class="mr-2">
+            <ng-container *ngIf="isEditingTask; else displayTask">
+              <textarea [(ngModel)]="doing[0].task" class="border p-2 rounded" [style.height.%]="100" [style.width.%]="100"></textarea>
+               
+            </ng-container>
+            <ng-template #displayTask>
+              <span>{{ doing[0].task }}</span>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="w-1/3">
+      <!-- Step Process Section -->
+      <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2">The Step Status</label>
+          <select [(ngModel)]="editableStep.stepProcess" class="w-full p-2 border rounded">
+            <option value="OFF">OFF</option>
+            <option value="ON">ON</option>
+        </select>
+        </div>
+        <div class="mb-4 ">
+          <div class="flex ">
+          <img src="assets/Time-Circle.png" alt="Time Icon" class="h-5 w-5 ">
+          <label class="block text-gray-700 text-sm font-bold mb-2 ml-1">Duration</label>
+        </div>
+          <input type="number" [(ngModel)]="editableStep.durationInMinutes" class="w-full p-2 border rounded">
+        </div>
+      </div>
+
+      <!-- Parcours Status Section -->
+      <div class="mb-4 p-4 bg-white rounded-lg shadow-md">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Parcours Status</label>
+        <div class="flex items-center mb-2">
+          <input type="radio" id="active" name="status" value="Active" [(ngModel)]="editableStep.completed"
+            class="mr-2">
+          <label for="active" class="text-gray-700">Active</label>
+        </div>
+        <div class="flex items-center mb-2">
+          <input type="radio" id="onHold" name="status" value="On Hold" [(ngModel)]="editableStep.completed"
+            class="mr-2">
+          <label for="onHold" class="text-gray-700">On Hold</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="close" name="status" value="Close" [(ngModel)]="editableStep.completed" class="mr-2">
+          <label for="close" class="text-gray-700">Close</label>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button (click)="saveChanges()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div *ngIf="isLoading" class="flex justify-center items-center h-screen">
+  <div class="loader"></div>
+</div>

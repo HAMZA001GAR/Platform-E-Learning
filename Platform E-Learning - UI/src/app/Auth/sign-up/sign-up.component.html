@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started with JitTracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="flex min-h-screen items-center justify-center py-6">
+        <div class="flex bg-white shadow-lg rounded-lg max-w-4xl w-full min-h-[500px]">
+            <div class="w-2/5 relative flex items-center justify-center rounded-l-lg bg-cover bg-center" style="background-image: url('assets/bg.png');">
+            </div>
+            <div class="w-3/5 p-8 flex flex-col justify-center rounded-r-lg">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-black text-2xl font-semibold font-['Poppins'] leading-10 ml-20">Get Started With JitTracking</h2>
+                    <a routerLink="/signin" class="text-blue-500 mb-12">Sign in</a>
+                </div>
+                <div *ngIf="errorMessage" class="text-red-500 mb-4">
+                    {{ errorMessage }}
+                </div>
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <div class="mb-4">
+                        <input type="text" formControlName="firstName" placeholder="firstName" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base">
+                        <div *ngIf="registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)" class="text-red-500 text-xs mt-1">
+                            firstName  is required.
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" formControlName="lastName" placeholder="lastName" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base">
+                        <div *ngIf="registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)" class="text-red-500 text-xs mt-1">
+                            lastName  is required.
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <select formControlName="roles" (change)="onRoleChange($event)" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base text-gray-600 placeholder-gray-400">
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="EXPERT">I'm An Expert</option>
+                            <option value="STUDENT">I'm A Student</option>
+                            <option value="ADMIN">I'm An Admin</option>
+                        </select>
+                        <div *ngIf="registerForm.get('roles')?.invalid && (registerForm.get('roles')?.dirty || registerForm.get('roles')?.touched)" class="text-red-500 text-xs mt-1">
+                            Role is required.
+                        </div>
+                    </div>
+                    <!-- Parcours / Modules  of the Expert-->
+                    <div class="mb-4" *ngIf="showParcoursDropdown">
+                        <select formControlName="parcoursId" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base text-gray-600 placeholder-gray-400">
+                            <option value="" disabled selected>Select Parcours</option>
+                            <option *ngFor="let parcours of parcoursList" [value]="parcours.id">{{ parcours.parcoursName}}</option>
+                        </select>
+                        <div *ngIf="registerForm.get('parcoursId')?.invalid && (registerForm.get('parcoursId')?.dirty || registerForm.get('parcoursId')?.touched)" class="text-red-500 text-xs mt-1">
+                            Parcours is required.
+                        </div>
+                    </div>
+                    <!-- Formations for the Students-->
+                     <div class="mb-4" *ngIf="showFormationsDRopDown">
+                        <select formControlName="formationsId" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base text-gray-600 placeholder-gray-400">
+                            <option value="" disabled selected>Select Formations</option>
+                            <option *ngFor="let formation of formationsList" [value]="formation.id">{{ formation.formationsName}}</option>
+                        </select>
+                        <div *ngIf="registerForm.get('formationsId')?.invalid && (registerForm.get('formationsId')?.dirty || registerForm.get('formationsId')?.touched)" class="text-red-500 text-xs mt-1">
+                            Formations is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="email" formControlName="email" placeholder="Enter Email" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base">
+                        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="text-red-500 text-xs mt-1">
+                            <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+                            <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input type="password" formControlName="password" placeholder="Password" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base">
+                        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="text-red-500 text-xs mt-1">
+                            <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+                            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="w-80 px-3 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200 text-base">
+                        <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)" class="text-red-500 text-xs mt-1">
+                            Confirm Password is required.
+                        </div>
+                        <div *ngIf="registerForm.errors?.['mismatch'] && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)" class="text-red-500 text-xs mt-1">
+                            Passwords must match.
+                        </div>
+                    </div>
+                    <button type="submit" class="w-80 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600" [disabled]="registerForm.invalid">Create Account</button>
+                </form>
+                <p class="text-xs text-gray-500 mt-4 text-center">
+                    By continuing you indicate that you read and agreed to the <a href="#" class="text-blue-500">Terms of Use</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+    <div *ngFor="let step of studentSteps" class="flex justify-between items-center bg-white p-4 shadow rounded">
+        <h1 class="text-2xl font-bold">{{ step.title }}</h1>
+        <div class="flex items-center space-x-4">
+     
+          <div class="flex items-center space-x-2">
+            
+            <img src="assets/8385650.png" alt="Time Icon" class="h-8 w-8">
+            <span>{{ remainingTime }}</span>
+            
+          </div>
+        </div>
+      </div>
+
+        <!-- Main Content -->
+        <div class="flex flex-grow p-6">
+            <div class="flex flex-col w-full space-y-6">
+                <!-- Content -->
+                <div class="flex space-x-6">
+                    <!-- Main Section -->
+                    <div class="flex flex-col w-3/4 space-y-6" *ngFor="let learning of learnings">
+                        <!-- Description -->
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Description</h3>
+                            <p class="text-gray-700">{{ learning.description }}</p>
+                        </div>
+
+                        <!-- Parts -->
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Part 1: Learning</h3>
+                            <ul class="list-disc text-gray-700">
+                                <li class="flex items-center" *ngFor="let url of learning.url">
+                                    <img src="assets/tick-circle.png" alt="tick" class="mr-2">
+                                    <a [href]="url" class="text-blue-500">{{ url }}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 shadow rounded">
+                            <h3 class="text-lg font-bold mb-2">Part 2: Doing</h3>
+                            <ul class="list-disc text-gray-700">
+                                <li class="flex items-center" *ngFor="let doing of doings">
+                                    <img src="assets/tick-circle.png" alt="tick" class="mr-2">{{ doing.task }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Section -->
+                    <div class="w-1/4 flex flex-col space-y-6">
+                      <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2 flex items-center" for="tools">
+                                <img src="assets/gitlab.png" alt="GitLab" class="mr-2">GitLab
+                            </label>
+                            <input type="text" [(ngModel)]="currentTaskUrl" placeholder="Enter task URL" class="w-full mb-2 px-4 py-2 border rounded">
+                            <button (click)="openConfirmationModal(currentTaskUrl)" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Complete</button>
+                          </div>
+                    </div>
+                </div>
+            </div>
+                      <!-- Start Tailwind CSS Modal Dialog -->
+
+                    <div *ngIf="showConfirmationModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true">
+                            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                <div
+                                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                        <div class="sm:flex sm:items-start">
+                                            <div
+                                                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                                </svg>
+                                            </div>
+                                            <div
+                                                class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                <h3 class="text-base font-semibold leading-6 text-gray-900"
+                                                    id="modal-title">Complete The Step</h3>
+                                                <div class="mt-2">
+                                                    <p class="text-sm text-gray-500">After Sumbiting your Gitlab Link this Step will be closed !</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <button type="button"
+                                            (click)="completeStep()"
+                                            class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Submit</button>
+                                        <button type="button"
+                                            (click)="cancelStep()"
+                                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Tailwind CSS Modal Dialog -->
+
+                
+           
+        </div>
+    </div>
+</body>
+
+</html>

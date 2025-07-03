@@ -1,0 +1,19 @@
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .primary-color {
+            background-color: #7B68EE;
+        }
+
+        .primary-text {
+            color: #7B68EE;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin: 0 auto;
+        }

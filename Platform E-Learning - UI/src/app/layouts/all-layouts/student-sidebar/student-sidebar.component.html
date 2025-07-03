@@ -1,0 +1,14 @@
+<aside class="sidebar" [class.hidden]="!isVisible">
+    <div class="logo" [routerLink]="[studentId,'step-progress']" >
+      <img src="assets/logo.png" alt="IT Learning Logo">
+    </div>
+    
+    <div class="latest-parcours">
+      <h1>Student Interface</h1>
+      
+      <ul>
+        <li><a [routerLink]="[studentId,'step-progress']" class="menu-item">  <img src="/assets/learning-school-svgrepo-com.svg" class="w-6 h-6" />Modules</a></li>
+      </ul>
+    </div>
+   
+  </aside>  

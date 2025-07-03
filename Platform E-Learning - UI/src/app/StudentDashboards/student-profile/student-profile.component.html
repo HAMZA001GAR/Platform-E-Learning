@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class=" p-6">
+    <div class="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+
+        <div class="bg-blue-500 h-32 relative">
+            <div class="absolute bottom-0 left-0 ml-6 mb-6">
+                <img src="" alt="Profile Image" class="rounded-full border-4 border-white">
+            </div>
+        </div>
+
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold">Settings</h2>
+                <div>
+                    <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded mr-2">Cancel</button>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded">Save</button>
+                </div>
+            </div>
+
+            <div class="border-b mb-6">
+                <ul class="flex justify-between">
+                    <li class="mr-6">
+                        <a class="text-blue-500 font-semibold" href="#">My details</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Profile</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Password</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Team</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Plan</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Billing</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Email</a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="text-gray-500 hover:text-blue-500" href="#">Notifications</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700">First name</label>
+                        <input type="text" class="w-full mt-1 border-gray-300 rounded-lg" placeholder="Kamal">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Last name</label>
+                        <input type="text" class="w-full mt-1 border-gray-300 rounded-lg" placeholder="Medani">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700">Email Address</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M2.94 5.06a.75.75 0 0 1 1.13.12A7.23 7.23 0 0 0 10 7a7.23 7.23 0 0 0 5.94-1.82.75.75 0 1 1 1.13.98A8.71 8.71 0 0 1 10 8.75 8.71 8.71 0 0 1 2.94 6.04a.75.75 0 0 1 .12-1.13Z">
+                                </path>
+                            </svg>
+                        </span>
+                        <input type="email" class="w-full pl-10 mt-1 border-gray-300 rounded-lg"
+                            placeholder="kamal.madza22@gmail.com">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700">Cover Image</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                        <p class="text-gray-500">Click to upload or drag and drop</p>
+                        <p class="text-gray-500">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700">Role</label>
+                    <input type="text" class="w-full mt-1 border-gray-300 rounded-lg" placeholder="Product Designer">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

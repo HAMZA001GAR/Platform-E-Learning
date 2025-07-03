@@ -1,0 +1,102 @@
+.progress-card {
+  cursor: pointer;
+   padding: 20px;
+ 
+   h2 {
+     font-size: 1.5em;
+     margin-bottom: 20px;
+   }
+ 
+   .card {
+     background-color: #fff;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     display: flex;
+     align-items: center;
+ 
+     .card-content {
+       display: flex;
+       align-items: center;
+       width: 100%;
+       
+       .course-banner {
+         width: 150px;
+         height: auto;
+         border-radius: 10px;
+         margin-right: 20px;
+       }
+ 
+       .course-details {
+         flex: 1;
+ 
+         h3 {
+           margin: 0;
+           font-size: 1.2em;
+         }
+ 
+         p {
+           margin: 5px 0;
+           color: #666;
+         }
+ 
+         .progress-info {
+           display: flex;
+           align-items: center;
+           margin: 10px 0;
+ 
+           .progress-bar {
+             width: 80%;
+             background-color: #e9ecef;
+             border-radius: 5px;
+             overflow: hidden;
+             margin-right: 10px;
+ 
+             .progress {
+               height: 10px;
+               background-color: #007bff;
+               width: 0;
+               transition: width 0.5s ease;
+             }
+           }
+ 
+           .progress-percent {
+             font-size: 0.9em;
+             color: #666;
+           }
+         }
+ 
+         .duration {
+           font-size: 0.9em;
+           color: #666;
+         }
+       }
+ 
+       .course-status {
+         min-width: 200px;
+         
+         p {
+           margin: 5px 0;
+           color: #666;
+         }
+ 
+         .avatars {
+           display: flex;
+           margin: 10px 0;
+ 
+           img {
+             width: 30px;
+             height: 30px;
+             border-radius: 50%;
+             margin-right: 5px;
+           }
+         }
+ 
+         .warnings {
+           color: #f39c12;
+           font-weight: bold;
+         }
+       }
+     }
+   }
+ }  

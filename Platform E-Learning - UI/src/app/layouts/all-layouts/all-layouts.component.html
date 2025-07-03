@@ -1,0 +1,10 @@
+<!-- <app-sidebar></app-sidebar> -->
+<app-admin-sidebar *ngIf="userRole === 'ADMIN'"></app-admin-sidebar>
+  <app-expert-sidebar *ngIf="userRole === 'EXPERT'"></app-expert-sidebar>
+  <app-student-sidebar *ngIf="userRole === 'STUDENT'"></app-student-sidebar>
+<div class="container">
+    <app-header></app-header>
+    <div class="content">
+        <router-outlet/>
+    </div>
+</div>

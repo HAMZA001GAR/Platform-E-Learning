@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  jit-api:
+    container_name: jitt-api
+    image: ${DOCKER_USERNAME}/jobintech-api:latest
+    ports:
+      - "8040:8080"
+    networks:
+      - spring-demo
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/jittracking
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - db
+  jit-ui:
+    container_name: jitt-ui
+    image: ${DOCKER_USERNAME}/jobintech-ui:latest
+    ports:
+      - 8033:80
+    networks:
+      - spring-demo
+    depends_on:
+      - jit-api
+  db:
+    container_name: postgres-sql-jit
+    image: postgres
+    environment:
+      POSTGRES_DB: jittracking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - spring-demo
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres_data:

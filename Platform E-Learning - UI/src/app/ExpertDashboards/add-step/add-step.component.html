@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Parcours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <form [formGroup]="stepForm" (ngSubmit)="saveStep()">
+        <div class="mb-6 flex space-x-2  place-content-between">
+            <div>
+                <nav>
+                    <ol class="list-reset flex text-gray-600">
+                        <li><a [routerLink] ="['/parcours']" class="primary-text">Dashboard</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li><a (click) ="NavigateToModules()" class="primary-text">Steps</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li>Add</li>
+                    </ol>
+                </nav>
+                <h1 class="text-2xl font-semibold mt-6" style="color: #7B68EE;">Add New Step</h1>
+            </div>
+
+
+        </div>
+
+        <div class="bg-gray-50 text-gray-900 flex grid grid-cols-3 gap-4 gap-8 mt-8">
+            <div class="block h-12 col-span-2">
+                <div class=" bg-white p-10 rounded-lg shadow-lg ">
+                    <div
+                        class="bg-blue-50 border-2 border-blue-200 border-dashed rounded-lg flex items-center justify-center p-8 mb-6 primary-color">
+                        <div class="text-center w-full mb-12">
+                            <input type="file" id="fileInput" (change)="onImageChange($event)" class="hidden" />
+                            <label for="fileInput" class="cursor-pointer">
+                                <svg class="upload-icon text-white" fill="currentColor" viewBox="0 0 136 136">
+                                    <circle cx="67.6539" cy="67.6539" r="67.6539" fill="#E9ECF5" />
+                                    <path
+                                        d="M88.6107 55.3149C86.6228 50.8402 83.1921 47.1274 78.8441 44.7455C74.4961 42.3636 69.4709 41.444 64.5383 42.1276C59.6058 42.8111 55.0381 45.0602 51.5352 48.5301C48.0323 52 45.7875 56.4993 45.1446 61.3386C42.0427 62.0663 39.3217 63.8846 37.4982 66.4482C35.6747 69.0118 34.8757 72.1421 35.253 75.2447C35.6304 78.3474 37.1577 81.2062 39.545 83.2784C41.9323 85.3505 45.0133 86.4916 48.2029 86.4851C49.0657 86.4851 49.8933 86.1493 50.5034 85.5516C51.1135 84.9539 51.4563 84.1432 51.4563 83.2979C51.4563 82.4526 51.1135 81.642 50.5034 81.0443C49.8933 80.4466 49.0657 80.1108 48.2029 80.1108C46.4771 80.1108 44.8221 79.4392 43.6018 78.2438C42.3815 77.0484 41.696 75.4271 41.696 73.7365C41.696 72.046 42.3815 70.4247 43.6018 69.2293C44.8221 68.0339 46.4771 67.3623 48.2029 67.3623C49.0657 67.3623 49.8933 67.0265 50.5034 66.4288C51.1135 65.8311 51.4563 65.0204 51.4563 64.1751C51.4646 60.4057 52.8367 56.7611 55.3288 53.889C57.8209 51.0168 61.2716 49.1031 65.0679 48.4877C68.8643 47.8723 72.7603 48.5952 76.064 50.5279C79.3677 52.4606 81.865 55.4779 83.1124 59.0439C83.2984 59.5915 83.6327 60.0795 84.0796 60.4556C84.5266 60.8316 85.0694 61.0818 85.6501 61.1792C87.8171 61.5804 89.7816 62.6887 91.2233 64.3235C92.6651 65.9582 93.4993 68.0232 93.5898 70.1817C93.6804 72.3403 93.022 74.4653 91.722 76.2105C90.422 77.9556 88.557 79.2181 86.4309 79.7921C85.5939 80.0034 84.8769 80.5318 84.4376 81.261C83.9983 81.9902 83.8727 82.8605 84.0884 83.6804C84.3042 84.5003 84.8435 85.2027 85.5879 85.633C86.3323 86.0634 87.2207 86.1864 88.0576 85.9751C91.4815 85.0888 94.5166 83.1322 96.7021 80.4023C98.8875 77.6725 100.104 74.3185 100.166 70.8499C100.229 67.3812 99.1344 63.9872 97.0488 61.1835C94.9632 58.3797 92.0005 56.3192 88.6107 55.3149ZM70.0335 61.9123C69.7241 61.6221 69.3593 61.3947 68.9599 61.243C68.1678 60.9242 67.2794 60.9242 66.4873 61.243C66.0879 61.3947 65.723 61.6221 65.4136 61.9123L55.6533 71.4737C55.0406 72.0738 54.6965 72.8878 54.6965 73.7365C54.6965 74.5853 55.0406 75.3992 55.6533 75.9994C56.2659 76.5995 57.0968 76.9367 57.9632 76.9367C58.8296 76.9367 59.6605 76.5995 60.2732 75.9994L64.4701 71.8561V89.6722C64.4701 90.5175 64.8129 91.3281 65.423 91.9258C66.0332 92.5235 66.8607 92.8593 67.7236 92.8593C68.5864 92.8593 69.414 92.5235 70.0241 91.9258C70.6343 91.3281 70.977 90.5175 70.977 89.6722V71.8561L75.174 75.9994C75.4764 76.2981 75.8363 76.5352 76.2327 76.697C76.6292 76.8588 77.0544 76.9421 77.4839 76.9421C77.9134 76.9421 78.3387 76.8588 78.7351 76.697C79.1316 76.5352 79.4914 76.2981 79.7939 75.9994C80.0988 75.7031 80.3409 75.3506 80.506 74.9622C80.6712 74.5738 80.7562 74.1573 80.7562 73.7365C80.7562 73.3158 80.6712 72.8992 80.506 72.5108C80.3409 72.1225 80.0988 71.77 79.7939 71.4737L70.0335 61.9123Z"
+                                        fill="#5866DD" />
+                                </svg>
+                                <ng-container *ngIf="selectedFileName; else defaultUpload">
+                                    <br>
+                                    <p class="mt-2 text-sm text-white">{{ selectedFileName }}</p>
+                                </ng-container>
+                                <ng-template #defaultUpload>
+                                    <br>
+                                    <p class="mt-2 text-sm text-white">Click to upload or drag and drop</p>
+                                    <p class="text-xs text-white">SVG, PNG, JPG or GIF (max, 800x400px)</p>
+                                </ng-template>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-12">
+                        <label for="title" class="block text-sm font-medium text-gray-700 ">Title</label>
+                        <input type="text" id="title" formControlName="title"
+                            class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder="Enter Your Title Here">
+                    </div>
+
+                    <div class="mb-12">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="description" rows="5" formControlName="description"
+                            class=" mb-12 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-color focus:border-primary-color sm:text-sm"
+                            placeholder="Enter your description here"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="block h-12">
+                <div class=" container mx-auto ">
+                    <div class="bg-white p-8 rounded-lg shadow-lg h-screen">
+                        <div class="mb-4">
+                            <label for="durationInMinutes"
+                                class="block text-sm font-medium text-gray-700">Duration</label>
+                            <input type="text" list="durationOptions" formControlName="durationInMinutes"
+                                placeholder="    Hour"
+                                class="mt-1 block h-10 w-full border border-gray-300 rounded-md shadow-sm focus:ring-primary-color focus:border-primary-color sm:text-sm">
+
+                            <datalist id="durationOptions">
+                                <option value=15>
+                                <option value=30>
+                                <option value=45>
+                            </datalist>
+                        </div>
+                        <div class="mb-6">
+                            <label for="parcours" class="block text-sm font-medium text-gray-700">Parcours</label>
+                            <div class="mt-4 w-full">
+                                <input type="text" placeholder="Choose a course" [(ngModel)]="par" list="parcoursOption"
+                                    class="border border-gray-300 rounded-lg py-2 px-4 block w-full placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                                    [formControl]="parcoursCtrl">
+                                <datalist id="parcoursOption" *ngIf="(filteredParcours | async) as parcoursList">
+                                    <option *ngFor="let parcour of parcoursList" value="{{ parcour.parcoursName }}"
+                                        (click)="onParcoursSelected(parcour)">{{ parcour.parcoursName }}</option>
+                                </datalist>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="stepProcess" class="block text-sm font-medium text-gray-700">Step
+                                Process</label>
+                            <select formControlName="stepProcess"
+                                class="text-gray-900 mt-1 block h-10 w-full border border-gray-300 rounded-md shadow-sm focus:ring-primary-color focus:border-primary-color sm:text-sm">
+                                <option value="" disabled selected class="text-gray-900">Select an option</option>
+                                <option value="ON">ON</option>
+                                <option value="OFF">OFF</option>
+                            </select>
+
+                        </div>
+
+                        <button type="submit"
+                            class="w-full primary-color text-white font-bold py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700">Add
+                            Step</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+ 
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<form [formGroup]="parcoursForm" (ngSubmit)="onSubmit()">
+  <div class="mb-8 flex gap-8 w-full">
+    <div class="flex flex-col gap-8 flex-grow">
+      <div class="w-80 p-6 bg-white rounded-lg shadow flex flex-col justify-start items-center gap-3.5">
+        <div class="self-stretch text-zinc-900 text-lg font-['Inter'] leading-7 tracking-tight">Thumbnail</div>
+        <div class="self-stretch flex-grow flex flex-col justify-start items-start gap-1">
+          <div class="self-stretch justify-start items-start gap-2 flex">
+            <div class="grow shrink basis-0 text-gray-600 text-sm font-medium font-['Inter'] leading-tight tracking-tight">Photo</div>
+          </div>
+          <div class="self-stretch h-96 px-3 py-16 bg-gray-50 rounded-lg border border-zinc-200 flex flex-col justify-center items-center gap-9">
+            <div class="p-2 bg-violet-200 rounded-full border-4 border-indigo-50 justify-start items-start gap-2 flex">
+              <div class="w-7 h-7 p-1 justify-center items-center flex">
+                <img src="assets/upload-icon.png" alt="test">
+              </div>
+            </div>
+            <ng-container *ngIf="selectedFileName; else defaultUpload">
+              <br>
+              <p class="mt-2 text-sm text-black">{{ selectedFileName }}</p>
+            </ng-container>
+            <ng-template #defaultUpload>
+              <br>
+              <div class="self-stretch text-center text-gray-400 text-sm font-normal font-['Inter'] leading-tight tracking-tight">Drag and drop image here, or click to add image</div>
+            </ng-template>
+            <div class="px-3.5 py-2.5 bg-violet-200 rounded-lg justify-center items-center gap-2 flex" (click)="triggerFileInput()">
+              <div class="text-indigo-500 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">Add Image</div>
+            </div>
+          </div>
+          <input type="file" id="fileInput" (change)="onImageChange($event)" #fileInput hidden />
+        </div>
+      </div>
+    </div>
+    <div class="w-full p-6 bg-white rounded-lg shadow border border-zinc-200 flex flex-col justify-start items-center gap-3.5 flex-grow">
+      <div class="self-stretch text-zinc-900 text-lg font-['Inter'] leading-7 tracking-tight">General Information</div>
+      <div class="self-stretch flex-grow flex flex-col justify-start items-start gap-3.5">
+        <div class="self-stretch h-16 flex flex-col justify-start items-start gap-1">
+          <div class="self-stretch justify-start items-start gap-2 flex">
+            <div class="grow shrink basis-0 text-gray-600 text-sm font-medium font-['Inter'] leading-tight tracking-tight">Module Name</div>
+          </div>
+          <div class="self-stretch px-3 py-2 bg-gray-50 rounded-lg border border-zinc-200 justify-start items-center gap-1 flex">
+            <div class="w-full h-6 justify-start items-center gap-2 flex">
+              <input formControlName="parcoursName" class="w-full text-gray-900 text-sm font-normal font-['Inter'] leading-tight tracking-tight px-2 py-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-200" placeholder="Type parcours name here...">
+            </div>
+          </div>
+        </div>
+        <div class="self-stretch flex flex-col justify-start items-start gap-1 h-full">
+          <div class="self-stretch justify-start items-start gap-2 flex">
+            <div class="grow shrink basis-0 text-gray-600 text-sm font-medium font-['Inter'] leading-tight tracking-tight">Description</div>
+          </div>
+          <div class="self-stretch px-3 py-2 bg-gray-50 rounded-lg border border-zinc-200 justify-start items-center gap-1 flex h-full">
+            <div class="w-full justify-start items-start gap-2 flex h-full">
+              <textarea formControlName="parcoursDescription" class="w-full h-full text-gray-900 text-sm font-normal font-['Inter'] leading-tight tracking-tight px-2 py-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-200" placeholder="Type parcours description here..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="self-stretch h-16 flex flex-col justify-start items-start gap-1">
+          <div class="self-stretch justify-start items-start gap-2 flex">
+            <div class="grow shrink basis-0 text-gray-600 text-sm font-medium font-['Inter'] leading-tight tracking-tight">Select Formation</div>
+          </div>
+          <div class="self-stretch px-3 py-2 bg-gray-50 rounded-lg border border-zinc-200 justify-start items-center gap-1 flex">
+            <div class="w-full h-6 justify-start items-center gap-2 flex">
+              <select formControlName="formationId" class="w-full text-gray-900 text-sm font-normal font-['Inter'] leading-tight tracking-tight px-2 py-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                <option value="" disabled selected>Please Select a formation</option>
+                <option *ngFor="let formation of formations" [value]="formation.id">{{ formation.formationsName }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="self-stretch mt-auto justify-start items-start gap-2 flex">
+        <button type="submit" class="px-3.5 py-2 bg-violet-200 rounded-lg justify-center items-center gap-2 flex text-indigo-500 text-sm font-semibold font-['Inter'] leading-tight tracking-tight">Save Parcours</button>
+      </div>
+    </div>
+  </div>
+</form>
